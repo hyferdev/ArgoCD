@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-2"
+  region = var.region 
 }
 
 # VPC info
@@ -15,7 +15,7 @@ resource "aws_vpc" "argo_vpc" {
 resource "aws_subnet" "argo_subnet" {
   cidr_block = "10.1.1.0/24"
   vpc_id     = aws_vpc.argo_vpc.id
-  availability_zone = "us-west-2b"
+  availability_zone = var.zone
   map_public_ip_on_launch = true
 
   tags = {
@@ -32,7 +32,7 @@ resource "aws_internet_gateway" "argo_igw" {
   }
 }
 
-# Create route tables
+# Route table info
 resource "aws_route_table" "argo_pub_rt" {
   vpc_id = aws_vpc.argo_vpc.id
 
@@ -48,7 +48,7 @@ resource "aws_route" "argo_route" {
   gateway_id = aws_internet_gateway.argo_igw.id
 }
 
-# Associate route tables with subnets
+# Associate route table with subnets
 resource "aws_route_table_association" "argo_rta" {
   subnet_id      = aws_subnet.argo_subnet.id
   route_table_id = aws_route_table.argo_pub_rt.id
