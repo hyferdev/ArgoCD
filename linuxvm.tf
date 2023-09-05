@@ -10,6 +10,9 @@ resource "aws_instance" "argo_instance" {
     #!/bin/bash
     sudo yum update
     sudo yum install wget
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    sudo install -o root -g root -m 0755 argocd-linux-amd64 /usr/local/bin/argocd
+    sudo rm -f argocd-linux-amd64
     curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
     sudo install  -o root -g root -m 0755 minikube-linux-amd64 /usr/local/bin/minikube
     sudo rm -f /minikube-linux-amd64
