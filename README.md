@@ -50,7 +50,7 @@ To get started with this ArgoCD deployment, follow these steps:
 6. **Confirm ArgoCD and Kubernetes Cluster is running:**
 
    SSH to your newly created VM
-   Expose ArgoCD-Server node ports
+   Expose ArgoCD-Server node ports (System will need about 10mins to run minikube setup script)
 
     ```bash
    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
